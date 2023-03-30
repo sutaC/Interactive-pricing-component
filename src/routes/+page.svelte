@@ -2,6 +2,26 @@
 	import Button from '../shared/button.svelte';
 	import Slider from '../shared/slider.svelte';
 	import Toggle from '../shared/toggle.svelte';
+
+	let price = [
+		{ pageviews: '10K', perMonth: 8 },
+		{ pageviews: '50K', perMonth: 12 },
+		{ pageviews: '100K', perMonth: 16 },
+		{ pageviews: '500K', perMonth: 24 },
+		{ pageviews: '1M', perMonth: 36 }
+	];
+
+	let sliderValue = 0;
+	let toggleValue = false;
+	let finalPrice;
+
+	$: {
+		finalPrice = price[sliderValue].perMonth;
+
+		if (toggleValue) {
+			finalPrice = (finalPrice * 3) / 4;
+		}
+	}
 </script>
 
 <!-- ---  -->
@@ -17,18 +37,18 @@
 
 <main>
 	<div class="top-section">
-		<p class="split">100k Pageviews</p>
+		<p class="split">{price[sliderValue].pageviews} Pageviews</p>
 
 		<div class="slider-conteiner">
-			<Slider />
+			<Slider min="0" max="4" on:valueChange={(event) => (sliderValue = event.detail.value)} />
 		</div>
 
-		<p class="price"><span class="bold">$16.00</span> /month</p>
+		<p class="price"><span class="bold">${finalPrice}.00</span> /month</p>
 	</div>
 
 	<div class="toggle-container">
 		<p>Monthly Billing</p>
-		<Toggle />
+		<Toggle on:valueChange={(event) => (toggleValue = event.detail.checked)} />
 		<p>
 			Yearly Billing <span class="discount">25%</span>
 		</p>

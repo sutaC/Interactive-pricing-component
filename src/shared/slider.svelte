@@ -1,15 +1,31 @@
 <script>
-	export let max = 100;
+	import { createEventDispatcher } from 'svelte';
+
 	export let min = 1;
-	export let value = 50;
+	export let max = 100;
+	let value = min;
 
 	$: filled = Math.floor((value / (max - min)) * 100);
+
+	const dispatch = createEventDispatcher();
+
+	const handleChange = () => {
+		dispatch('valueChange', { value });
+	};
 </script>
 
 <!-- ---  -->
 
 <div class="container" style="--filled-precent: {filled}%;">
-	<input type="range" name="cost-slider" class="slider" bind:value {min} {max} />
+	<input
+		type="range"
+		name="cost-slider"
+		class="slider"
+		bind:value
+		{min}
+		{max}
+		on:change={handleChange}
+	/>
 </div>
 
 <!-- ---  -->

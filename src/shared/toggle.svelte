@@ -1,8 +1,16 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+
 	export let checked = false;
+
+	const dispatch = createEventDispatcher();
+
+	const handleChange = () => {
+		dispatch('valueChange', { checked });
+	};
 </script>
 
-<input type="checkbox" name="toggle" id="toggle" bind:checked />
+<input type="checkbox" name="toggle" id="toggle" bind:checked on:change={handleChange} />
 <label for="toggle" class="toggle-button" />
 
 <style>
