@@ -10,19 +10,21 @@
 	<h1>Simple, traffic-based pricing</h1>
 	<p>
 		Sign-up for our 30-day trial.
-		<br />
+		<br class="mobile" />
 		No credit card required.
 	</p>
 </header>
 
 <main>
-	<p>100k Pageviews</p>
+	<div class="top-section">
+		<p class="split">100k Pageviews</p>
 
-	<div class="slider-conteiner">
-		<Slider />
+		<div class="slider-conteiner">
+			<Slider />
+		</div>
+
+		<p class="price"><span class="bold">$16.00</span> /month</p>
 	</div>
-
-	<p class="price"><span class="bold">$16.00</span> /month</p>
 
 	<div class="toggle-container">
 		<p>Monthly Billing</p>
@@ -32,15 +34,15 @@
 		</p>
 	</div>
 
-	<hr />
+	<div class="separator">
+		<ul>
+			<li>Unlimited websites</li>
+			<li>100% data ownership</li>
+			<li>Email reports</li>
+		</ul>
 
-	<ul>
-		<li>Unlimited websites</li>
-		<li>100% data ownership</li>
-		<li>Email reports</li>
-	</ul>
-
-	<Button>Start my trial</Button>
+		<Button>Start my trial</Button>
+	</div>
 </main>
 
 <!-- ---  -->
@@ -56,7 +58,7 @@
 		--clr-Pale-Blue: hsl(226, 100%, 87%); /* (CTA Text) */
 		/* Neutral */
 		--clr-White: hsl(0, 0%, 100%); /* (Pricing Component Background) */
-		--clr-Very-Pale-Blue: hsl(230, 100%, 99%); /* (Main Background) */
+		--clr-Very-Pale-Blue: hsl(230, 86%, 95%); /* (Main Background) */
 		--clr-Light-Grayish-Blue: hsl(224, 65%, 95%); /* (Empty Slider Bar) */
 		--clr-Light-Grayish-Blue: hsl(223, 50%, 87%); /* (Toggle Background) */
 		--clr-Grayish-Blue: hsl(225, 20%, 60%); /* (Text) */
@@ -79,7 +81,7 @@
 		font-weight: 600;
 		text-align: center;
 
-		background-color: var(--clr-Pale-Blue);
+		background-color: var(--clr-Very-Pale-Blue);
 	}
 
 	h1,
@@ -95,6 +97,11 @@
 		font-size: 0.8em;
 	}
 
+	.split {
+		text-transform: uppercase;
+		letter-spacing: 0.1rem;
+	}
+
 	/* Main styles  */
 
 	:global(body) {
@@ -108,6 +115,7 @@
 	header,
 	main {
 		width: 90%;
+		max-width: 30rem;
 	}
 
 	header {
@@ -130,19 +138,23 @@
 		justify-content: center;
 		align-items: center;
 	}
-	main > p:first-of-type {
-		text-transform: uppercase;
-		letter-spacing: 0.1rem;
+
+	.top-section {
+		width: 100%;
 	}
 
-	main hr {
-		border: none;
-		border-bottom: 1px solid var(--clr-Light-Grayish-Blue);
+	.separator {
+		margin-top: 1rem;
+		padding: 0.5rem;
+
+		width: 100%;
+		border-top: 1px solid rgba(211, 211, 211, 0.5);
 	}
 
 	ul {
 		padding: 0;
 		list-style-type: none;
+		line-height: 2;
 	}
 	li::before {
 		content: url('/icon-check.svg');
@@ -176,16 +188,49 @@
 	}
 
 	.slider-conteiner {
-		width: 80%;
-		margin: 1rem 0;
+		width: 90%;
+		margin: 1rem auto;
 	}
 
 	@media (min-width: 768px) {
+		header h1 {
+			font-size: 1.8em;
+		}
+
 		.discount::before {
 			content: '';
 		}
 		.discount::after {
 			content: ' discount';
+		}
+
+		.top-section {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			align-items: center;
+			gap: 1rem;
+		}
+		.slider-conteiner {
+			grid-column: 1 / 3;
+			grid-row: 2 / 2;
+		}
+
+		.separator {
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+		}
+
+		.toggle-container {
+			gap: 0.8rem;
+		}
+
+		ul {
+			text-align: left;
+		}
+
+		.mobile {
+			display: none;
 		}
 	}
 </style>
